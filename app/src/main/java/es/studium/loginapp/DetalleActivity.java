@@ -32,13 +32,17 @@ public class DetalleActivity extends AppCompatActivity {
 
         String user = bundle.getString("user");
         String pass = bundle.getString("pass");
+        Boolean btn = bundle.getBoolean("btn");
+        if(btn==false){
+            btnBorrar.setText(R.string.volver);
+        }
 
         bienvenida.setText("Bienvenido "+ user + " (clave = " + pass +").");
 
         btnBorrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sharedPreferences = getSharedPreferences(MainActivity.MyPreferences, Context.MODE_PRIVATE);
+                sharedPreferences = getSharedPreferences("LoginCredentials", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.commit();

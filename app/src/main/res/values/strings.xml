@@ -8,5 +8,6 @@
     <string name="claveHolder">Clave</string>
     <string name="bienvenida">Bienvenido...</string>
     <string name="borrar">Borrar</string>
+    <string name="volver">Volver</string>
     <string name="aviso">AVISO</string>
 </resources>
