@@ -31,14 +31,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        usuario = findViewById(R.id.editUser);
-        clave = findViewById(R.id.editPass);
-        guardar = findViewById(R.id.switchGuardar);
-        acceder = findViewById(R.id.btnAcceder);
-        lblAviso = findViewById(R.id.lblAviso);
-        lblAviso.setText("");
 
         sharedPreferences = getSharedPreferences(MyPreferences, Context.MODE_PRIVATE);
 
@@ -46,26 +38,41 @@ public class MainActivity extends AppCompatActivity {
             user = sharedPreferences.getString(usuarioKey, "");
             pass = sharedPreferences.getString(claveKey, "");
             entrarEnDetalle(user, pass);
-        }
+        } else {
+            setContentView(R.layout.activity_main);
 
-        acceder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                user = usuario.getText().toString();
-                pass = clave.getText().toString();
-                if(usuario.getText().length()!=0 && clave.getText().length()!=0){
-                    if(guardar.isChecked()){
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(usuarioKey, user);
-                        editor.putString(claveKey, pass);
-                        editor.commit();
-                    }
-                    entrarEnDetalle(user, pass);
-                } else {
-                    lblAviso.setText("Deben rellenarse los dos campos para acceder.");
-                }
+            usuario = findViewById(R.id.editUser);
+            clave = findViewById(R.id.editPass);
+            guardar = findViewById(R.id.switchGuardar);
+            acceder = findViewById(R.id.btnAcceder);
+            lblAviso = findViewById(R.id.lblAviso);
+            lblAviso.setText("");
+
+            if(sharedPreferences.getAll().size()!=0){
+                user = sharedPreferences.getString(usuarioKey, "");
+                pass = sharedPreferences.getString(claveKey, "");
+                entrarEnDetalle(user, pass);
             }
-        });
+
+            acceder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    user = usuario.getText().toString();
+                    pass = clave.getText().toString();
+                    if(usuario.getText().length()!=0 && clave.getText().length()!=0){
+                        if(guardar.isChecked()){
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString(usuarioKey, user);
+                            editor.putString(claveKey, pass);
+                            editor.commit();
+                        }
+                        entrarEnDetalle(user, pass);
+                    } else {
+                        lblAviso.setText("Deben rellenarse los dos campos para acceder.");
+                    }
+                }
+            });
+        }
     }
 
     public void entrarEnDetalle(String user, String pass){
