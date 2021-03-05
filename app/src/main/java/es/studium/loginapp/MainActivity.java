@@ -29,11 +29,6 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
 
     @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
